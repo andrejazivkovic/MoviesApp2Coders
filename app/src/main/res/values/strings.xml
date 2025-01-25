@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">MoviesApp2Coders</string>
+    <string name="main_movie_screen">Discover</string>
+    <string name="favorite_screen">Favorites</string>
 </resources>
