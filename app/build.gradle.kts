@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -17,7 +19,17 @@ android {
         versionCode = 1
         versionName = "1.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        buildConfigField("String", "API_KEY", "\"${System.getenv("api.key")}\"")
+        // Acess local.properties and if the key exsist set it to a API_KEY variable in the
+        // generated BuildConfige file
+        val localProperties = File(rootDir, "local.properties")
+        val apiKey = if (localProperties.exists()) {
+            localProperties.inputStream().use { input ->
+                Properties().apply { load(input) }.getProperty("api.key")
+            }
+        } else {
+            null
+        }
+        buildConfigField("String", "API_KEY", "\"${apiKey ?: ""}\"")
     }
 
     composeOptions {
@@ -32,7 +44,7 @@ android {
 
     buildTypes {
         release {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"

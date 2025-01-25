@@ -6,5 +6,14 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "movies")
 internal data class MovieEntity(
     @PrimaryKey
-    val id: String
+    val id: Int,
+    val originalLanguage:String,
+    val originalTitle:String,
+    val overview:String,
+    val popularity:Float,
+    val posterPath:String,
+    val releaseDate:String,
+    val title: String,
+    val voteAverage:Float,
+    val voteCount: Int
 )
