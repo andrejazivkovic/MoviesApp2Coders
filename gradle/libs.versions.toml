@@ -7,8 +7,7 @@ compose-destinations = "1.11.7"
 activityCompose = "1.10.0"
 ksp = "2.0.21-1.0.27"
 hilt = "2.51.1"
-hilt-navigation ="1.2.0"
-coil-compose = "3.0.4"
+hilt-navigation = "1.2.0"
 retrofit = "2.9.0"
 okhttp3 = "5.0.0-alpha.11"
 room = "2.7.+"
@@ -50,7 +49,7 @@ squareup-retrofit = { group = "com.squareup.retrofit2", name = "retrofit", versi
 squareup-moshi = { group = "com.squareup.retrofit2", name = "converter-moshi", version.ref = "retrofit" }
 squareup-okhttp3 = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "okhttp3" }
 #Glide
-glide = {group = "com.github.bumptech.glide", name = "compose", version.ref = "glide"}
+glide = { group = "com.github.bumptech.glide", name = "compose", version.ref = "glide" }
 #Material
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 androidx-material3-android = { group = "androidx.compose.material3", name = "material3-android", version.ref = "material3Android" }

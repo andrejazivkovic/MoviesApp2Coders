@@ -2,8 +2,12 @@ package com.example.moviesapp2coders.remote
 
 import androidx.room.withTransaction
 import com.example.moviesapp2coders.domain.Movie
+import com.example.moviesapp2coders.domain.MovieToggle
 import com.example.moviesapp2coders.local.MoviesDatabase
+import com.example.moviesapp2coders.remote.Result
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
@@ -41,4 +45,28 @@ internal class RepositoryImpl @Inject constructor(
                 it.toMovie()
             }
         }
+    // Cold flow for manually emitting when suspend api call is resumed also wrapped in Result so can
+    //handle outcomes easier
+    override suspend fun searchMovie(
+        movieToggle: MovieToggle,
+        query: String
+    ): Flow<Result<List<Movie>>> =
+        flow {
+            emit(Result.Loading)
+            if (movieToggle == MovieToggle.MOVIE) {
+                try {
+                    val moviesResult = moviesApi.searchMovie(query).results.map { it.toMovie() }
+                    emit(Result.Success(moviesResult))
+                } catch (exception: Exception) {
+                    emit(Result.Error(exception))
+                }
+            } else {
+                try {
+                    val tvShowResult = moviesApi.searchTvShow(query).results.map { it.toMovie() }
+                    emit(Result.Success(tvShowResult))
+                } catch (exception: Exception) {
+                    emit(Result.Error(exception))
+                }
+            }
+        }.distinctUntilChanged()
 }

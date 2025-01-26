@@ -25,6 +25,7 @@ import com.example.moviesapp2coders.domain.Movie
 import com.example.moviesapp2coders.presentation.MoviesViewModel
 import com.example.moviesapp2coders.presentation.components.MovieCard
 import com.example.moviesapp2coders.presentation.components.MoviesScaffold
+import com.example.moviesapp2coders.presentation.screens.destinations.MovieDetailsScreenDestination
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.annotation.RootNavGraph
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
@@ -52,10 +53,15 @@ internal fun FavoriteMoviesScreen(
                 .fillMaxSize()
                 .padding(innerPadding)
         ) {
-            FavoriteMoviesSection(favoriteMovies = favoriteMovies) {
+            FavoriteMoviesSection(
+                favoriteMovies = favoriteMovies,
+                onDetailsScreen = {
+                    destinationsNavigator.navigate(MovieDetailsScreenDestination(it))
+                }
+            ) {
                 moviesViewModel.updateMovieFavorites(movie = it, favorite = false)
             }
-            EmptyWatchLatterList(favoriteMovies = favoriteMovies)
+            EmptyWatchLaterList(favoriteMovies = favoriteMovies)
         }
     }
 }
@@ -64,7 +70,8 @@ internal fun FavoriteMoviesScreen(
 private fun FavoriteMoviesSection(
     modifier: Modifier = Modifier,
     favoriteMovies: List<Movie>,
-    onRemoveFavoriteMovie: (Movie) -> Unit
+    onDetailsScreen: (Movie) -> Unit,
+    onRemoveFavoriteMovie: (Movie) -> Unit,
 ) {
     AnimatedVisibility(favoriteMovies.isNotEmpty(), modifier = modifier) {
         LazyRow(
@@ -80,9 +87,7 @@ private fun FavoriteMoviesSection(
                         .height(400.dp)
                         .width(310.dp),
                     movie = movie,
-                    onMoviePicked = {
-
-                    },
+                    onMoviePicked = onDetailsScreen,
                     removeFavorites = onRemoveFavoriteMovie
                 )
             }
@@ -91,9 +96,13 @@ private fun FavoriteMoviesSection(
 }
 
 @Composable
-private fun EmptyWatchLatterList(modifier: Modifier = Modifier, favoriteMovies: List<Movie>) =
+private fun EmptyWatchLaterList(modifier: Modifier = Modifier, favoriteMovies: List<Movie>) =
     AnimatedVisibility(favoriteMovies.isEmpty(), modifier = modifier) {
-        Box(modifier = Modifier.fillMaxSize().padding(bottom = 150.dp)) {
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(bottom = 150.dp)
+        ) {
             Text(
                 modifier = Modifier
                     .align(Alignment.Center),

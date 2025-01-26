@@ -78,6 +78,7 @@ private fun MovieDetails(modifier: Modifier = Modifier, movie: Movie) {
                 modifier = Modifier
                     .fadingEdge(bottomFade),
             )
+
             Column(
                 modifier = Modifier
                     .align(Alignment.BottomStart)
@@ -88,9 +89,11 @@ private fun MovieDetails(modifier: Modifier = Modifier, movie: Movie) {
             }
             //GENRES
         }
-        Text(modifier = Modifier
-            .fillMaxWidth()
-            .padding(20.dp), text = movie.overview)
+        Text(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(20.dp), text = movie.overview
+        )
 
     }
 }

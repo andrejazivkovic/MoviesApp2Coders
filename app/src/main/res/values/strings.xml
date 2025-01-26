@@ -9,4 +9,8 @@
     <string name="remove_favorite">Remove</string>
     <string name="empty_favorite_movies">No movies left..</string>
     <string name="movie_details">Movie Details</string>
+    <string name="search">Search</string>
+    <string name="search_movie">Search Movie/TV Show</string>
+    <string name="tv_shows">TV Shows</string>
+    <string name="no_movie_like_that">Cant find movie with that name...</string>
 </resources>

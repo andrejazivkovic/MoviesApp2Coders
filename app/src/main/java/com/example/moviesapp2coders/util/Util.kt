@@ -16,6 +16,7 @@ val LocalSnackBarHostState = compositionLocalOf<SnackbarHostState> {
     error("SnackbarHostState wasn't provided")
 }
 
+//Extension for fading given edge for cosmetic purposes
 internal fun Modifier.fadingEdge(brush: Brush) = this
     .graphicsLayer(compositingStrategy = CompositingStrategy.Offscreen)
     .drawWithContent {
