@@ -22,6 +22,7 @@ kotlinx = "1.9.0"
 material3Android = "1.3.1"
 pagination-runtime = "3.3.5"
 room-pagination = "2.6.1"
+glide = "1.0.0-beta01"
 
 [libraries]
 #AndroidX
@@ -48,8 +49,8 @@ hilt-ksp-compiler = { group = "com.google.dagger", name = "hilt-compiler", versi
 squareup-retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
 squareup-moshi = { group = "com.squareup.retrofit2", name = "converter-moshi", version.ref = "retrofit" }
 squareup-okhttp3 = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "okhttp3" }
-#Coil
-coil = { group = "io.coil-kt.coil3", name = "coil-compose", version.ref = "coil-compose" }
+#Glide
+glide = {group = "com.github.bumptech.glide", name = "compose", version.ref = "glide"}
 #Material
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 androidx-material3-android = { group = "androidx.compose.material3", name = "material3-android", version.ref = "material3Android" }

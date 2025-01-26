@@ -2,6 +2,7 @@ package com.example.moviesapp2coders.remote
 
 import com.example.moviesapp2coders.domain.Movie
 import com.example.moviesapp2coders.local.MovieEntity
+import com.example.moviesapp2coders.remote.MoviesApi.Companion.BASE_IMAGE_URL
 
 internal fun MovieDTO.toMovieEntity() = MovieEntity(
     id = id,
@@ -22,7 +23,7 @@ internal fun MovieEntity.toMovie() = Movie(
     overview = overview,
     originalLanguage = originalLanguage,
     popularity = popularity,
-    posterPath = posterPath,
+    posterPath = "$BASE_IMAGE_URL$posterPath",
     releaseDate = releaseDate,
     title = title,
     voteAverage = voteAverage,

@@ -99,8 +99,8 @@ dependencies {
     implementation(libs.squareup.moshi)
     implementation(libs.squareup.okhttp3)
 
-    //Coil
-    implementation(libs.coil)
+    //Glide
+    implementation(libs.glide)
 
     //Room
     implementation(libs.bundles.room)
