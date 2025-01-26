@@ -7,6 +7,7 @@ plugins {
     alias(libs.plugins.jetbrainsCompose)
     alias(libs.plugins.ksp)
     alias(libs.plugins.hilt.plugin)
+    id(libs.plugins.parcelize.get().pluginId)
 }
 
 android {

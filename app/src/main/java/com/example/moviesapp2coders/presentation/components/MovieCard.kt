@@ -50,7 +50,7 @@ import com.example.moviesapp2coders.util.fadingEdge
 internal fun MovieCard(
     modifier: Modifier = Modifier,
     movie: Movie,
-    onMoviePicked: (Int) -> Unit,
+    onMoviePicked: (Movie) -> Unit,
     addToFavorites: (Movie) -> Unit = {},
     removeFavorites: (Movie) -> Unit = {}
 ) {
@@ -92,7 +92,7 @@ internal fun MovieCard(
                 ButtonsSection(
                     isMovieFavorite = isFavorite,
                     onMoviePicked = {
-                        onMoviePicked(movie.id)
+                        onMoviePicked(movie)
                     },
                     addToFavorites = {
                         addToFavorites(movie)

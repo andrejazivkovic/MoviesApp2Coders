@@ -1,9 +1,12 @@
 package com.example.moviesapp2coders.domain
 
+import android.os.Parcelable
 import androidx.compose.runtime.Stable
+import kotlinx.parcelize.Parcelize
 
 @Stable
-internal data class Movie(
+@Parcelize
+data class Movie(
     val id: Int,
     val originalLanguage: String,
     val originalTitle: String,
@@ -15,4 +18,4 @@ internal data class Movie(
     val voteAverage: Float,
     val voteCount: Int,
     val isFavorite: Boolean
-)
+) : Parcelable
