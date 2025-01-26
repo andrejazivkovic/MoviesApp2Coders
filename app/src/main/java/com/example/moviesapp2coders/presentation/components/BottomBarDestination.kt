@@ -2,8 +2,8 @@ package com.example.moviesapp2coders.presentation.components
 
 import androidx.annotation.StringRes
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.Lock
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Menu
 import androidx.compose.ui.graphics.vector.ImageVector
 import com.example.moviesapp2coders.R
 import com.example.moviesapp2coders.presentation.screens.destinations.FavoriteMoviesScreenDestination
@@ -16,6 +16,6 @@ enum class BottomBarDestination(
     val icon: ImageVector,
     @StringRes val label: Int
 ) {
-    Main(MainMovieScreenDestination, Icons.Default.Home, R.string.main_movie_screen),
-    Favorite(FavoriteMoviesScreenDestination, Icons.Default.Lock, R.string.favorite_screen)
+    Main(MainMovieScreenDestination, Icons.Default.Menu, R.string.main_movie_screen),
+    Favorite(FavoriteMoviesScreenDestination, Icons.Default.Add, R.string.watch_later)
 }

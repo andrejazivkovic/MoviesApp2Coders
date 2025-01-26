@@ -13,5 +13,6 @@ internal data class Movie(
     val releaseDate: String,
     val title: String,
     val voteAverage: Float,
-    val voteCount: Int
+    val voteCount: Int,
+    val isFavorite: Boolean
 )

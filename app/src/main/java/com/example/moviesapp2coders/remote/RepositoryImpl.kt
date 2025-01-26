@@ -31,8 +31,8 @@ internal class RepositoryImpl @Inject constructor(
     }
 
     //Add movies to favorites
-    override suspend fun addFavoriteMovie(movie: Movie) =
-        moviesDatabase.movieDao.insertMovie(movie.toMovieEntity(isFavorite = true))
+    override suspend fun updateMovieFavorite(movie: Movie, isFavorite: Boolean) =
+        moviesDatabase.movieDao.insertMovie(movie.toMovieEntity(isFavorite = isFavorite))
 
     //Get all favorite movies
     override val favoriteMovies: Flow<List<Movie>> =

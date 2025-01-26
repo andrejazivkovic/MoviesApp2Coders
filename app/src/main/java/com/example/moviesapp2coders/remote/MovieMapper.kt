@@ -27,7 +27,8 @@ internal fun MovieEntity.toMovie() = Movie(
     releaseDate = releaseDate,
     title = title,
     voteAverage = voteAverage,
-    voteCount = voteCount
+    voteCount = voteCount,
+    isFavorite = isFavorite
 )
 
 internal fun Movie.toMovieEntity(isFavorite: Boolean = false) = MovieEntity(

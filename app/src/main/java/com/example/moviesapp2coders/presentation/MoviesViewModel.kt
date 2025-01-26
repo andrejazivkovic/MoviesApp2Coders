@@ -35,7 +35,7 @@ internal class MoviesViewModel @Inject constructor(
     internal val favoriteMovies = repository.favoriteMovies
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(500), emptyList())
 
-    internal fun addToFavorites(movie: Movie) = viewModelScope.launch {
-        repository.addFavoriteMovie(movie)
+    internal fun updateMovieFavorites(movie: Movie, favorite: Boolean) = viewModelScope.launch {
+        repository.updateMovieFavorite(movie, favorite)
     }
 }

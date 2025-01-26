@@ -1,8 +1,11 @@
 <resources>
     <string name="app_name">MoviesApp2Coders</string>
-    <string name="main_movie_screen">Discover</string>
+    <string name="main_movie_screen">Movies</string>
     <string name="favorite_screen">Favorites</string>
     <string name="movie_info">Details</string>
     <string name="movie_favorites">My List</string>
     <string name="no_internet_available">No Internet Available</string>
+    <string name="watch_later">Watch Later</string>
+    <string name="remove_favorite">Remove</string>
+    <string name="empty_favorite_movies">No movies left..</string>
 </resources>

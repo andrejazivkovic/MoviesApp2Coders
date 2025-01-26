@@ -51,7 +51,7 @@ internal fun MainMovieScreen(
                 destinationsNavigator.navigate(MovieDetailsScreenDestination)
             }
         },
-        addToFavorites = { moviesViewModel.addToFavorites(it) }
+        addToFavorites = { moviesViewModel.updateMovieFavorites(movie = it, favorite = true) }
     )
     InternetAvailabilitySnackBar(status = internetConnection, trigger = checkConnection)
 }

@@ -22,6 +22,7 @@ import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -50,11 +51,14 @@ internal fun MovieCard(
     modifier: Modifier = Modifier,
     movie: Movie,
     onMoviePicked: (Int) -> Unit,
-    addToFavorites: (Movie) -> Unit
+    addToFavorites: (Movie) -> Unit = {},
+    removeFavorites: (Movie) -> Unit = {}
 ) {
     val bottomFade = remember {
         Brush.verticalGradient(0.65f to Color.Red, 1f to Color.Transparent)
     }
+    //Added is favorite so can manage ui difference for add/remove section of the card
+    val isFavorite = remember { !movie.isFavorite }
     Card(
         modifier = modifier
             .padding(15.dp)
@@ -85,11 +89,18 @@ internal fun MovieCard(
                     modifier = Modifier.padding(horizontal = 15.dp),
                     description = movie.overview
                 )
-                ButtonsSection(onMoviePicked = {
-                    onMoviePicked(movie.id)
-                }, addToFavorites = {
-                    addToFavorites(movie)
-                })
+                ButtonsSection(
+                    isMovieFavorite = isFavorite,
+                    onMoviePicked = {
+                        onMoviePicked(movie.id)
+                    },
+                    addToFavorites = {
+                        addToFavorites(movie)
+                    },
+                    removeFavorite = {
+                        removeFavorites(movie)
+                    }
+                )
             }
         }
     }
@@ -110,8 +121,10 @@ private fun MovieDescription(modifier: Modifier = Modifier, description: String)
 @Composable
 private fun ButtonsSection(
     modifier: Modifier = Modifier,
+    isMovieFavorite: Boolean,
     onMoviePicked: () -> Unit,
-    addToFavorites: () -> Unit
+    addToFavorites: () -> Unit,
+    removeFavorite: () -> Unit
 ) = Row(
     modifier = modifier
         .fillMaxWidth()
@@ -128,9 +141,9 @@ private fun ButtonsSection(
     Spacer(modifier = Modifier.size(15.dp))
     MovieButton(
         modifier = Modifier.weight(1f),
-        imageVector = Icons.Default.Add,
-        text = R.string.movie_favorites,
-        onClick = addToFavorites
+        imageVector = if (isMovieFavorite) Icons.Default.Add else Icons.Default.Clear,
+        text = if (isMovieFavorite) R.string.movie_favorites else R.string.remove_favorite,
+        onClick = if (isMovieFavorite) addToFavorites else removeFavorite
     )
 }
 
