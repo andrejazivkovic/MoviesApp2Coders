@@ -4,4 +4,5 @@
     <string name="favorite_screen">Favorites</string>
     <string name="movie_info">Details</string>
     <string name="movie_favorites">My List</string>
+    <string name="no_internet_available">No Internet Available</string>
 </resources>

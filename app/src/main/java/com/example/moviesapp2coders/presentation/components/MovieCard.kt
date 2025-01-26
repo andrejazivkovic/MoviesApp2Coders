@@ -49,8 +49,8 @@ import com.example.moviesapp2coders.util.fadingEdge
 internal fun MovieCard(
     modifier: Modifier = Modifier,
     movie: Movie,
-    onMoviePicked: () -> Unit,
-    addToFavorites: () -> Unit
+    onMoviePicked: (Int) -> Unit,
+    addToFavorites: (Movie) -> Unit
 ) {
     val bottomFade = remember {
         Brush.verticalGradient(0.65f to Color.Red, 1f to Color.Transparent)
@@ -85,7 +85,11 @@ internal fun MovieCard(
                     modifier = Modifier.padding(horizontal = 15.dp),
                     description = movie.overview
                 )
-                ButtonsSection(onMoviePicked = onMoviePicked, addToFavorites = addToFavorites)
+                ButtonsSection(onMoviePicked = {
+                    onMoviePicked(movie.id)
+                }, addToFavorites = {
+                    addToFavorites(movie)
+                })
             }
         }
     }

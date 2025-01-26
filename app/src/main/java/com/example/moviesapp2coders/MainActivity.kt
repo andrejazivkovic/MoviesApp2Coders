@@ -9,10 +9,12 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.ModalBottomSheetValue
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material.navigation.BottomSheetNavigator
 import androidx.compose.material.navigation.ModalBottomSheetLayout
 import androidx.compose.material.rememberModalBottomSheetState
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -23,6 +25,7 @@ import com.example.moviesapp2coders.presentation.components.BottomBar
 import com.example.moviesapp2coders.presentation.screens.NavGraphs
 import com.example.moviesapp2coders.ui.theme.MoviesApp2CodersTheme
 import com.example.moviesapp2coders.util.LocalCurrentNavController
+import com.example.moviesapp2coders.util.LocalSnackBarHostState
 import com.ramcosta.composedestinations.DestinationsNavHost
 import com.ramcosta.composedestinations.animations.rememberAnimatedNavHostEngine
 import dagger.hilt.android.AndroidEntryPoint
@@ -39,6 +42,9 @@ class MainActivity : ComponentActivity() {
                 //Bottom bar and navigation setup
                 //Local provider navController
                 val navController = rememberNavController()
+                val snackBarHostState = remember {
+                    SnackbarHostState()
+                }
                 val bottomSheetState = rememberModalBottomSheetState(
                     initialValue = ModalBottomSheetValue.Hidden,
                     skipHalfExpanded = true
@@ -47,7 +53,10 @@ class MainActivity : ComponentActivity() {
                     BottomSheetNavigator(sheetState = bottomSheetState)
                 }
                 navController.navigatorProvider += bottomSheetNavigator
-                CompositionLocalProvider(LocalCurrentNavController provides navController) {
+                CompositionLocalProvider(
+                    LocalCurrentNavController provides navController,
+                    LocalSnackBarHostState provides snackBarHostState
+                ) {
                     MoviesApp2CodersTheme {
                         ModalBottomSheetLayout(
                             bottomSheetNavigator = bottomSheetNavigator,
@@ -55,6 +64,7 @@ class MainActivity : ComponentActivity() {
                         ) {
                             Scaffold(
                                 modifier = Modifier.fillMaxSize(),
+                                snackbarHost = { SnackbarHost(snackBarHostState) },
                                 bottomBar = {
                                     BottomBar(controller = navController)
                                 }

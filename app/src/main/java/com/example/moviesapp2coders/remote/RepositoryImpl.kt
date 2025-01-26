@@ -3,6 +3,8 @@ package com.example.moviesapp2coders.remote
 import androidx.room.withTransaction
 import com.example.moviesapp2coders.domain.Movie
 import com.example.moviesapp2coders.local.MoviesDatabase
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 internal class RepositoryImpl @Inject constructor(
@@ -27,4 +29,16 @@ internal class RepositoryImpl @Inject constructor(
             page to moviesDatabase.movieDao.gelAllAvailableMovies().map { it.toMovie() }
         }
     }
+
+    //Add movies to favorites
+    override suspend fun addFavoriteMovie(movie: Movie) =
+        moviesDatabase.movieDao.insertMovie(movie.toMovieEntity(isFavorite = true))
+
+    //Get all favorite movies
+    override val favoriteMovies: Flow<List<Movie>> =
+        moviesDatabase.movieDao.getFavoriteMovies().map { entity ->
+            entity.map {
+                it.toMovie()
+            }
+        }
 }

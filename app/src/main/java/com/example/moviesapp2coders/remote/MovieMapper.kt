@@ -29,3 +29,17 @@ internal fun MovieEntity.toMovie() = Movie(
     voteAverage = voteAverage,
     voteCount = voteCount
 )
+
+internal fun Movie.toMovieEntity(isFavorite: Boolean = false) = MovieEntity(
+    id = id,
+    originalTitle = originalTitle,
+    overview = overview,
+    originalLanguage = originalLanguage,
+    popularity = popularity,
+    posterPath = "$BASE_IMAGE_URL$posterPath",
+    releaseDate = releaseDate,
+    title = title,
+    voteAverage = voteAverage,
+    voteCount = voteCount,
+    isFavorite = isFavorite
+)
