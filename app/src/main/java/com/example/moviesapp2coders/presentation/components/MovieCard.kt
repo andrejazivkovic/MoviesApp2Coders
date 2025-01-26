@@ -3,6 +3,7 @@ package com.example.moviesapp2coders.presentation.components
 import androidx.annotation.StringRes
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -62,6 +63,7 @@ internal fun MovieCard(
     Card(
         modifier = modifier
             .padding(15.dp)
+            .clickable(onClick = {onMoviePicked(movie)})
             .border(
                 width = 1.dp,
                 color = Color.Gray,

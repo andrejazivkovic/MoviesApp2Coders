@@ -25,7 +25,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.moviesapp2coders.domain.MovieToggle
-import com.example.moviesapp2coders.ui.theme.PremiumGreen
 
 @Composable
 internal fun MovieTvShowToggle(
@@ -69,12 +68,12 @@ internal fun MovieTvShowToggle(
 }
 
 @Composable
-fun ToggleButton(modifier: Modifier, text: String, isSelected: Boolean, onClick: () -> Unit) {
+private fun ToggleButton(modifier: Modifier, text: String, isSelected: Boolean, onClick: () -> Unit) {
     Surface(
         modifier = modifier
             .clickable(onClick = onClick),
         shape = RoundedCornerShape(25.dp),
-        color = if (isSelected) PremiumGreen else Color.Transparent
+        color = if (isSelected) Color.White else Color.Transparent
     ) {
         Text(
             text = text,
