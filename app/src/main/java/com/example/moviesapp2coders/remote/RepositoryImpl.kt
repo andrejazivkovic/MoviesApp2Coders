@@ -15,7 +15,6 @@ internal class RepositoryImpl @Inject constructor(
     private val moviesApi: MoviesApi,
     private val moviesDatabase: MoviesDatabase
 ) : Repository {
-
     // Check if internet is available
     // Fetch data from the API and store it in the local database
     // If no internet, get movies from the local database

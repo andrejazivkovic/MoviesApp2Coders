@@ -34,7 +34,7 @@ internal class MoviesViewModelTest : AppBaseTest() {
     }
 
     private val pagerFlow = MutableSharedFlow<PagingData<Movie>>(replay = 1)
-    val mockPager = mockk<Pager<Int, Movie>>(relaxed = true) {
+    private val mockPager = mockk<Pager<Int, Movie>>(relaxed = true) {
         every { flow } returns pagerFlow
     }
 
