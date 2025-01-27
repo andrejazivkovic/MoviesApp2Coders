@@ -26,7 +26,11 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -46,7 +50,6 @@ import com.example.moviesapp2coders.util.fadingEdge
 
 // Movie Card that displays short description and two buttons for adding to favorites and navigating
 // to movie details screen
-@OptIn(ExperimentalGlideComposeApi::class)
 @Composable
 internal fun MovieCard(
     modifier: Modifier = Modifier,
@@ -55,15 +58,47 @@ internal fun MovieCard(
     addToFavorites: (Movie) -> Unit = {},
     removeFavorites: (Movie) -> Unit = {}
 ) {
+    //Added is favorite so can manage ui difference for add/remove section of the card
+    var isFavorite by rememberSaveable(movie) { mutableStateOf(!movie.isFavorite) }
+    MovieCardContent(
+        modifier = modifier,
+        posterPath = movie.posterPath,
+        title = movie.title,
+        overview = movie.overview,
+        isFavorite = isFavorite,
+        onMoviePicked = {
+            onMoviePicked(movie)
+        },
+        addToFavorites = {
+            addToFavorites(movie)
+            isFavorite = !isFavorite
+        },
+        removeFavorites = {
+            removeFavorites(movie)
+            isFavorite = !isFavorite
+        }
+    )
+}
+
+@OptIn(ExperimentalGlideComposeApi::class)
+@Composable
+private fun MovieCardContent(
+    modifier: Modifier = Modifier,
+    posterPath: String?,
+    title: String,
+    overview: String,
+    isFavorite: Boolean,
+    onMoviePicked: () -> Unit,
+    addToFavorites: () -> Unit = {},
+    removeFavorites: () -> Unit = {}
+) {
     val bottomFade = remember {
         Brush.verticalGradient(0.65f to Color.Red, 1f to Color.Transparent)
     }
-    //Added is favorite so can manage ui difference for add/remove section of the card
-    val isFavorite = remember { !movie.isFavorite }
     Card(
         modifier = modifier
             .padding(15.dp)
-            .clickable(onClick = {onMoviePicked(movie)})
+            .clickable(onClick = onMoviePicked)
             .border(
                 width = 1.dp,
                 color = Color.Gray,
@@ -74,8 +109,8 @@ internal fun MovieCard(
     ) {
         Box(modifier = Modifier.fillMaxSize()) {
             GlideImage(
-                model = movie.posterPath,
-                contentDescription = movie.title,
+                model = posterPath,
+                contentDescription = title,
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
                     .fillMaxSize()
@@ -89,19 +124,13 @@ internal fun MovieCard(
             ) {
                 MovieDescription(
                     modifier = Modifier.padding(horizontal = 15.dp),
-                    description = movie.overview
+                    description = overview
                 )
                 ButtonsSection(
                     isMovieFavorite = isFavorite,
-                    onMoviePicked = {
-                        onMoviePicked(movie)
-                    },
-                    addToFavorites = {
-                        addToFavorites(movie)
-                    },
-                    removeFavorite = {
-                        removeFavorites(movie)
-                    }
+                    onMoviePicked = onMoviePicked,
+                    addToFavorites = addToFavorites,
+                    removeFavorite = removeFavorites
                 )
             }
         }

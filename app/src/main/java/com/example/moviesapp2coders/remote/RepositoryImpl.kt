@@ -4,7 +4,6 @@ import androidx.room.withTransaction
 import com.example.moviesapp2coders.domain.Movie
 import com.example.moviesapp2coders.domain.MovieToggle
 import com.example.moviesapp2coders.local.MoviesDatabase
-import com.example.moviesapp2coders.remote.Result
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.flow

@@ -4,7 +4,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.Pager
 import androidx.paging.cachedIn
-import androidx.paging.map
 import com.example.moviesapp2coders.domain.Movie
 import com.example.moviesapp2coders.domain.MovieToggle
 import com.example.moviesapp2coders.remote.InternetAvailability
@@ -20,7 +19,6 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.flatMapLatest
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -33,11 +31,7 @@ internal class MoviesViewModel @Inject constructor(
     private val repository: Repository
 ) : ViewModel() {
 
-    internal val moviesPagerFlow = pager
-        .flow
-        .map { pagingData ->
-            pagingData.map { it }
-        }.cachedIn(viewModelScope)
+    internal val moviesPagerFlow = pager.flow.cachedIn(viewModelScope)
 
     internal val hasInternet = internetAvailability.internetConnection
         .stateIn(viewModelScope, SharingStarted.Eagerly, Status.Available)
@@ -49,11 +43,11 @@ internal class MoviesViewModel @Inject constructor(
         repository.updateMovieFavorite(movie, favorite)
     }
 
-    private val selectedSearchOptionUrlMutable = MutableStateFlow<MovieToggle>(MovieToggle.MOVIE)
-    private val selectedSearchOptionUrl = selectedSearchOptionUrlMutable.asStateFlow()
+    private val selectedSearchOptionMutable = MutableStateFlow<MovieToggle>(MovieToggle.MOVIE)
+    private val selectedSearchOption = selectedSearchOptionMutable.asStateFlow()
 
     internal fun updateSelectedSearchOption(movieToggle: MovieToggle) {
-        selectedSearchOptionUrlMutable.value = movieToggle
+        selectedSearchOptionMutable.value = movieToggle
     }
 
     private val searchQueryMutable = MutableStateFlow("")
@@ -64,7 +58,7 @@ internal class MoviesViewModel @Inject constructor(
         .debounce(2000)
         .filter { it.isNotBlank() }
         .flatMapLatest { query ->
-            repository.searchMovie(movieToggle = selectedSearchOptionUrl.value, query = query)
+            repository.searchMovie(movieToggle = selectedSearchOption.value, query = query)
         }
         .stateIn(viewModelScope, SharingStarted.Lazily, Result.Success(emptyList()))
 

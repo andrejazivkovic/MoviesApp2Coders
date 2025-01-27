@@ -35,11 +35,13 @@ internal fun MainMovieScreen(
     val movies = moviesViewModel.moviesPagerFlow.collectAsLazyPagingItems()
     val internetConnection by moviesViewModel.hasInternet.collectAsStateWithLifecycle()
     MoviesListRepresentation(
+        modifier = modifier,
         movies = movies,
         onMovieClicked = {
             destinationsNavigator.navigate(MovieDetailsScreenDestination(it))
         },
-        addToFavorites = { moviesViewModel.updateMovieFavorites(movie = it, favorite = true) }
+        addToFavorites = { moviesViewModel.updateMovieFavorites(movie = it, favorite = true) },
+        removeFavorites = { moviesViewModel.updateMovieFavorites(movie = it, favorite = false) }
     )
     InternetAvailabilitySnackBar(status = internetConnection)
 }
@@ -49,7 +51,8 @@ private fun MoviesListRepresentation(
     modifier: Modifier = Modifier,
     movies: LazyPagingItems<Movie>,
     onMovieClicked: (Movie) -> Unit,
-    addToFavorites: (Movie) -> Unit
+    addToFavorites: (Movie) -> Unit,
+    removeFavorites: (Movie) -> Unit,
 ) {
     Box(modifier = Modifier.fillMaxSize()) {
         if (movies.loadState.refresh is LoadState.Loading) {
@@ -65,7 +68,8 @@ private fun MoviesListRepresentation(
                         MovieCard(
                             movie = movie,
                             onMoviePicked = onMovieClicked,
-                            addToFavorites = addToFavorites
+                            addToFavorites = addToFavorites,
+                            removeFavorites = removeFavorites
                         )
                     }
                 }
