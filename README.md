@@ -44,4 +44,16 @@ Welcome to the Movie List App! This Android application allows you to explore a 
 
 
 ## 🎥 Quick Preview of the design
+<img src="https://github.com/andrejazivkovic/MoviesApp2Coders/blob/master/app/src/main/res/drawable/main_screen.jpeg"
+alt="main screen"
+style="border-radius: 30%; width: 400px; height: 948px; object-fit: cover;"/>
+<img src="https://github.com/andrejazivkovic/MoviesApp2Coders/blob/master/app/src/main/res/drawable/details_screen.jpeg"
+alt="details screen"
+style="border-radius: 30%; width: 400px; height: 948px; object-fit: cover;"/>
+<img src="https://github.com/andrejazivkovic/MoviesApp2Coders/blob/master/app/src/main/res/drawable/search_tv_show.jpeg"
+alt="search screen"
+style="border-radius: 30%; width: 400px; height: 948px; object-fit: cover;"/>
+<img src="https://github.com/andrejazivkovic/MoviesApp2Coders/blob/master/app/src/main/res/drawable/watch_later.jpeg"
+alt="watch later"
+style="border-radius: 30%; width: 400px; height: 948px; object-fit: cover;"/>
 
